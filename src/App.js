@@ -1,12 +1,9 @@
 import './App.css';
 import Arg from './Arg';
-import { useContext, useState } from 'react';
-import { DebateContext } from './DebateContext';
+import { useEffect, useState } from 'react';
 
 function App() {
-    // var idCount = useContext(4)
     var idCount = 4
-    // const debate = useContext(DebateContext)
     var [debate, setDebate] = useState({
         name: "Premise!",
         id: 0,
@@ -30,12 +27,24 @@ function App() {
         ]
     })
 
+    // To confirm before reloading or closing
+    useEffect(() => {
+        const unloadCallback = (event) => {
+          event.preventDefault();
+          event.returnValue = "";
+          return "";
+        };
+
+        window.addEventListener("beforeunload", unloadCallback);
+        return () => window.removeEventListener("beforeunload", unloadCallback);
+      }, []);
+
     return (
     <div className="App">
       <header className="App-header">
         Debate Tracker
       </header>
-      <Arg node={debate} debate={debate} setDebate={setDebate}/>
+      <Arg node={debate} debate={debate} setDebate={setDebate} key={0}/>
     </div>
   );
 }
