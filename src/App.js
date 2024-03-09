@@ -16,8 +16,6 @@ const defaultDebate = {
         children: []
     }]
 }
-// const DEBUG = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
-
 
 export default function App() {
     const [debate, setDebate] = useState(defaultDebate)

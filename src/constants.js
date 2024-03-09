@@ -1,3 +1,2 @@
-// const API_URL = "http://localhost:8000/api/";
-// export const API_URL = "http://127.0.0.1:8000/api/";
-export const API_URL = "https://smartycope.pythonanywhere.com/api/";
+export const DEBUG = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+export const API_URL = DEBUG ? "http://localhost:8000/api/" : "https://smartycope.pythonanywhere.com/api/"
