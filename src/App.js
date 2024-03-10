@@ -38,7 +38,8 @@ export default function App() {
         const link = document.createElement('a');
 
         // Set the download attribute and href with the Blob
-        link.download = "debate.json";
+        // link.download = "debate.json";
+        link.download = argID + ".json";
         link.href = URL.createObjectURL(blob);
 
         // Append the link to the body and trigger a click event
