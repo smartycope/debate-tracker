@@ -53,7 +53,7 @@ export default function Landing(){
         fetch_debates()
     }, [navigate])
 
-    return <>
+    return <div id='landing-page'>
         <p>Please Enter the name of a debate to go to</p>
         <input ref={enterText} type="text" onChange={e => setValid(true)}></input>
         {!valid && <p>That debate does not exist yet. But you can start it</p>}
@@ -68,5 +68,5 @@ export default function Landing(){
                 {debates}
             </ul>
         </div>
-    </>
+    </div>
 }
