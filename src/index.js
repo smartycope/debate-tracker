@@ -11,7 +11,7 @@ root.render(
     <BrowserRouter basename='/debate-tracker/'>
         <Routes>
             <Route path="/:argID" element={<App />} />
-            <Route path="/" element={<Landing/>}/>
+            <Route path="" element={<Landing/>}/>
         </Routes>
     </BrowserRouter>
 );
