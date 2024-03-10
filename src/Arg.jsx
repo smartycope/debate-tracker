@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
-import {getNodeCount, addToTree, editText, removeNode} from "./treeFuncs";
+// import {getNodeCount, addToTree, editText, removeNode} from "./treeFuncs";
 import axios from "axios";
 import { API_URL } from "./constants"
 
 
-export default function Arg({node, debate, setDebate, argID, last=false, premise=false}) {
+export default function Arg({node, update, argID, last=false, premise=false}) {
     var content = useRef()
     const API = API_URL + argID + '/'
 
@@ -12,41 +12,27 @@ export default function Arg({node, debate, setDebate, argID, last=false, premise
     const childs = node.children?.map(child => <Arg
         key={child.id}
         node={child}
-        debate={debate}
+        update={update}
         argID={argID}
-        setDebate={setDebate}
         last={child === node.children[node.children.length - 1]}
     />)
 
-    var newNode = {
-        name: "",
-        id: getNodeCount(debate),
-        children: []
-    }
 
     function handleAddRebuttal(e){
-        axios.post(API + `add_child/${node.id}/`).then(() =>
-            setDebate(addToTree(debate, newNode, node.id))
-        )
+        axios.post(API + `add_child/${node.id}/`).then(update)
     }
 
     function handleAddSiblingRebuttal(e){
-        axios.post(API + `add_sibling/${node.id}/`).then(() =>
-            setDebate(addToTree(debate, newNode, node.id, true))
-        )
+        axios.post(API + `add_sibling/${node.id}/`).then(update)
     }
 
     function handleEdited(e){
-        axios.put(API + `edit/${node.id}/`, content.current.innerText).then(() =>
-            setDebate(editText(debate, content.current.innerText, node.id))
-        )
+        axios.put(API + `edit/${node.id}/`, content.current.innerText).then(update)
     }
 
     function handleRemove(e){
         if (window.confirm('❕ Delete arguement and rebuttals?'))
-            axios.delete(API + `delete/${node.id}/`).then(() =>
-                setDebate(removeNode(debate, node.id))
-            )
+            axios.delete(API + `delete/${node.id}/`).then(update)
     }
 
     const area = <pre
@@ -71,7 +57,7 @@ export default function Arg({node, debate, setDebate, argID, last=false, premise
                 <summary>
                     {area}
                     <button onClick={handleAddRebuttal}>➕ Add Rebuttal</button>
-                    {last && <button onClick={handleAddSiblingRebuttal}>➕ Add Sibling Rebuttal</button>}
+                    {last && <button onClick={handleAddSiblingRebuttal}>➕ Add A Different Rebuttal</button>}
                     <button onClick={handleRemove}>❌ Delete</button>
                 </summary>
                 {childs}

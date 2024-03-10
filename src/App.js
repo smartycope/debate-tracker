@@ -95,8 +95,7 @@ export default function App() {
         axios.post(API + 'new_def/').then(() => setDefs(copy))
     }
 
-    useEffect(() => {
-        // Load the debate with the correct data
+    function reload_debate(){
         axios.get(API + 'get_whole_debate/')
             .then(({data}) => {
                 // console.log(data);
@@ -120,17 +119,11 @@ export default function App() {
                         setErrMsg(<h2>Unknown Server Error</h2>)
                 }
             })
+    }
 
-        // // To confirm before reloading or closing
-        // const unloadCallback = (event) => {
-        //     event.preventDefault();
-        //     event.returnValue = "";
-        //     return "";
-        // }
-
-        // window.addEventListener("beforeunload", unloadCallback);
-        // return () => window.removeEventListener("beforeunload", unloadCallback);
-    }, [API, navigate])
+    useEffect(() => {
+        reload_debate()
+    }, [])
 
     if (errMsg !== null)
         return errMsg
@@ -140,7 +133,7 @@ export default function App() {
         <Sidebar data={defs} setDef={setDef} newDef={newDef} isOpen={openSidebar} onOpen={e => setOpenSidebar(true)} onClose={e => setOpenSidebar(false)}/>
         <header>Premise:</header>
         <main className='main-content'>
-            <Arg node={debate} debate={debate} setDebate={setDebate} argID={argID} key={0} premise={true} />
+            <Arg node={debate} update={reload_debate} argID={argID} key={0} premise={true} />
         </main>
         <hr/>
         <div className='buttons'>
