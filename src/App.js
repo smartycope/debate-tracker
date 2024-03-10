@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 import axios from "axios";
 import { API_URL } from "./constants"
 import { useNavigate, useParams } from 'react-router';
+import Switch from "react-switch";
 
 
 const defaultDebate = {
@@ -22,6 +23,7 @@ export default function App() {
     const [defs, setDefs] = useState([])
     const [openSidebar, setOpenSidebar] = useState(false)
     const [errMsg, setErrMsg] = useState(null)
+    const [colored, setColored] = useState(true)
     const { argID } = useParams()
     const navigate = useNavigate()
     const API = API_URL + argID + '/'
@@ -134,7 +136,7 @@ export default function App() {
         <Sidebar data={defs} setDef={setDef} newDef={newDef} isOpen={openSidebar} onOpen={e => setOpenSidebar(true)} onClose={e => setOpenSidebar(false)}/>
         <header>Premise:</header>
         <main className='main-content'>
-            <Arg node={debate} update={reload_debate} argID={argID} key={0} premise={true} />
+            <Arg node={debate} update={reload_debate} argID={argID} key={0} premise={true} against={true} colored={colored}/>
         </main>
         <hr/>
         <div className='buttons'>
@@ -155,6 +157,9 @@ export default function App() {
                 <button onClick={e => navigate('/')}>🏠 Go to Home Page</button>
             </div>
         </div>
+        <br/>
+        <label style={{fontSize: "small"}}>Use Colors </label>
+        <Switch onChange={e => setColored(!colored)} checked={colored} height={12} width={30} uncheckedIcon={false} checkedIcon={false} handleDiameter={10}/>
     </div>
   )
 }

@@ -75,13 +75,6 @@ input[type="file"],
     clip: rect(0, 0, 0, 0);
 }
 
-/* Style sections with red outlines */
-section {
-    /* border: 1px solid red;
-    border-radius: 6px;
-    padding: 10px; */
-    /* margin: 10px; */
-}
 
 /* Style textboxes and input text boxes with red outlines and dark theme backgrounds */
 
@@ -109,31 +102,6 @@ textarea{
     font-weight: normal;
 }
 
-/* .buttons{ */
-    /* overflow: hidden; */
-    /* display: inline-flex; */
-/* } */
-
-/* .buttons-left{ */
-    /* float: left; */
-/* } */
-
-/* .buttons-center{ */
-    /* align-self: center; */
-    /* margin: 0 20px; */
-
-    /* text-align: center; */
-    /* float: left; */
-/* } */
-
-/* .buttons-right{ */
-    /* text-align: right; */
-    /* margin-left: 100%; */
-    /* text-align: right; */
-    /* float: right; */
-/* } */
-
-
 .buttons {
     display: flex;
     justify-content: space-between;
@@ -145,7 +113,7 @@ textarea{
     justify-content: center;
 }
 
-  /* Optional: Adjust styles for individual buttons as needed */
-  /* button { */
-    /* margin: 5px; */
-  /* } */
+/* For the colored premise to have rounded edges */
+pre{
+    border-radius: 4px;
+}

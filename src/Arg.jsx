@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_URL } from "./constants"
 
 
-export default function Arg({node, update, argID, last=false, premise=false}) {
+export default function Arg({node, update, argID, against, colored, last=false, premise=false}) {
     var content = useRef()
     const API = API_URL + argID + '/'
 
@@ -14,6 +14,8 @@ export default function Arg({node, update, argID, last=false, premise=false}) {
         node={child}
         update={update}
         argID={argID}
+        against={!against}
+        colored={colored}
         last={child === node.children[node.children.length - 1]}
     />)
 
@@ -42,6 +44,7 @@ export default function Arg({node, update, argID, last=false, premise=false}) {
         id={premise ? 'premise' : `text${node.id}`}
         onBlur={handleEdited}
         ref={content}
+        style={{background: (premise && colored) ? "rgb(121,140,115)" : ""}}
     >{node.name}</pre>
 
     if (premise)
@@ -54,7 +57,7 @@ export default function Arg({node, update, argID, last=false, premise=false}) {
         return(
             // This is to prevent details from toggling when space is *released* (not pressed)
             <details open onKeyUp={e => e.preventDefault()}>
-                <summary>
+                <summary style={{background: colored ? (against ? "rgb(121,140,115)" : "rgb(153,102,102)") : ""}}>
                     {area}
                     <button onClick={handleAddRebuttal}>➕ Add Rebuttal</button>
                     {last && <button onClick={handleAddSiblingRebuttal}>➕ Add A Different Rebuttal</button>}
