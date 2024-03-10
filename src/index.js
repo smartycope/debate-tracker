@@ -11,7 +11,7 @@ root.render(
     <HashRouter>
         <Routes>
             <Route path="/:argID" element={<App />} />
-            <Route path="" element={<Landing/>}/>
+            <Route path="/" element={<Landing/>}/>
         </Routes>
     </HashRouter>
 );

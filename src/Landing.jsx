@@ -46,7 +46,7 @@ export default function Landing(){
         async function fetch_debates(){
             axios.get(API_URL + 'get_all_debates/').then(({data}) =>
                 setDebates(data.map(([name, premise]) =>
-                    <li key={name}><a title={premise} href={name}>{name}</a></li>
+                    <li key={name}><a title={premise} href={`#/${name}`}>{name}</a></li>
                 ))
             )
         }
