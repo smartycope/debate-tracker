@@ -6,6 +6,7 @@ import axios from "axios";
 import { API_URL } from "./constants"
 import { useNavigate, useParams } from 'react-router';
 import Switch from "react-switch";
+import Modal from 'react-modal';
 
 
 const defaultDebate = {
@@ -18,12 +19,34 @@ const defaultDebate = {
     }]
 }
 
+
+const modalStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        background: "#333",
+        border: "1px solid #ff5555",
+    },
+    overlay:{
+        backgroundColor: 'rgba(0,0,0,0)',
+    }
+};
+
+// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement('#root');
+
+
 export default function App() {
     const [debate, setDebate] = useState(defaultDebate)
     const [defs, setDefs] = useState([])
     const [openSidebar, setOpenSidebar] = useState(false)
     const [errMsg, setErrMsg] = useState(null)
     const [colored, setColored] = useState(true)
+    const [modalOpen, setModalOpen] = useState(false)
     const { argID } = useParams()
     const navigate = useNavigate()
     const API = API_URL + argID + '/'
@@ -141,25 +164,39 @@ export default function App() {
         <hr/>
         <div className='buttons'>
             <div className='buttons-group'>
-                <button className="sidebar-button" onClick={e => setOpenSidebar(!openSidebar)}>📜 Show Definitions</button>
-                <button className="clear-button" onClick={handleClearAll}>🗑️ Clear Debate</button>
-            </div>
-            <div className='buttons-group'>
-                <button className="download-button" onClick={handleDownload}>💾 Dowload Debate</button>
-                <label htmlFor="fileInput" className="label-for-file">📂 Load Debate</label>
-                <input type="file" id="fileInput" className="input-for-file" onChange={handleFileSelection}/>
+                <button className="sidebar-button" onClick={e => setOpenSidebar(!openSidebar)}>📜 Definitions</button>
             </div>
             <div className='buttons-group'>
                 <button className="expand-button" onClick={handleOpenAll}>📖 Expand All</button>
                 <button className="collapse-button" onClick={handleCloseAll}>📕 Collapse All</button>
             </div>
             <div className='buttons-group'>
-                <button onClick={e => navigate('/')}>🏠 Go to Home Page</button>
+                <button onClick={e => navigate('/')}>🏠 Home</button>
             </div>
         </div>
         <br/>
-        <label style={{fontSize: "small"}}>Use Colors </label>
-        <Switch onChange={e => setColored(!colored)} checked={colored} height={12} width={30} uncheckedIcon={false} checkedIcon={false} handleDiameter={10}/>
+        <div id="options-button"> <button onClick={e => setModalOpen(true)}>⚙️ Options</button> </div>
+        <Modal
+            isOpen={modalOpen}
+            style={modalStyles}
+            contentLabel="Options"
+            data={{background: "green"}}
+        >
+            <div id="centered">
+                <h3>Options</h3>
+                <label style={{fontSize: "small"}}>Use Colors </label>
+                <Switch onChange={e => setColored(!colored)} checked={colored} height={12} width={30} uncheckedIcon={false} checkedIcon={false} handleDiameter={10}/>
+                <br/><br/>
+                <button className="clear-button" onClick={e => {handleClearAll(e); setModalOpen(false)}}>🗑️ Clear Debate</button>
+                <br/><br/>
+                <label htmlFor="fileInput" className="label-for-file">📂 Load Debate</label>
+                <input type="file" id="fileInput" className="input-for-file" onChange={e => {handleFileSelection(e); setModalOpen(false)}}/>
+                <br/>
+                <button className="download-button" onClick={e => {handleDownload(e); setModalOpen(false)}}>💾 Dowload Debate</button>
+                <br/><br/>
+                <button onClick={e => setModalOpen(false)}>Close</button>
+            </div>
+        </Modal>
     </div>
   )
 }

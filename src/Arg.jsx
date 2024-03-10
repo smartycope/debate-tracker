@@ -60,7 +60,7 @@ export default function Arg({node, update, argID, against, colored, last=false, 
                 <summary style={{background: colored ? (against ? "rgb(121,140,115)" : "rgb(153,102,102)") : ""}}>
                     {area}
                     <button onClick={handleAddRebuttal}>➕ Add Rebuttal</button>
-                    {last && <button onClick={handleAddSiblingRebuttal}>➕ Add A Different Rebuttal</button>}
+                    {last && <button onClick={handleAddSiblingRebuttal}>➕ Add Different Rebuttal</button>}
                     <button onClick={handleRemove}>❌ Delete</button>
                 </summary>
                 {childs}

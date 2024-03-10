@@ -117,3 +117,11 @@ textarea{
 pre{
     border-radius: 4px;
 }
+
+#centered{
+    text-align: center;
+}
+
+#options-button{
+    text-align: right;
+}
