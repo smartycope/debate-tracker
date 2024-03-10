@@ -64,8 +64,9 @@ export default function Landing(){
         <button onClick={start_new}>Start Debate</button>
         <main id="filler"></main>
         <footer>
-            NOTE: Currently, all debates get erased when I update the server. I'll try to warn you
-            when I do that, but if you want to make sure a debate gets saved, download it.
+            {/* NOTE: Currently, all debates get erased when I update the server. I'll try to warn you
+            when I do that, but if you want to make sure a debate gets saved, download it. */}
+            <button onClick={e => axios.post(API_URL + 'save_all/')}>Manual Backup</button>
         </footer>
         <div id="sidebar">
             <h1>Current Debates</h1>
