@@ -38,13 +38,15 @@ export default function Landing(){
         }
     }
 
+    console.log(API_URL)
+
     useEffect(() => {
         // This fetches the list of all debates (formatted as [['name', "premise"], ...])
-        // and formates them as buttons to be put in the sidebar
+        // and formates them as links to be put in the sidebar
         async function fetch_debates(){
             axios.get(API_URL + 'get_all_debates/').then(({data}) =>
                 setDebates(data.map(([name, premise]) =>
-                    <li key={name}><button title={premise} onClick={e => navigate(name)}>{name}</button></li>
+                    <li key={name}><a title={premise} href={name}>{name}</a></li>
                 ))
             )
         }
