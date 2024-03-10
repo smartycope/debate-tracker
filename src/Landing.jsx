@@ -62,6 +62,11 @@ export default function Landing(){
         <input ref={newText} type="text" onChange={e => setBlocked(false)}></input>
         {blocked && <p>That debate already exists, try a different name</p>}
         <button onClick={start_new}>Start Debate</button>
+        <main id="filler"></main>
+        <footer>
+            NOTE: Currently, all debates get erased when I update the server. I'll try to warn you
+            when I do that, but if you want to make sure a debate gets saved, download it.
+        </footer>
         <div id="sidebar">
             <h1>Current Debates</h1>
             <ul>
