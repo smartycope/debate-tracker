@@ -8,7 +8,7 @@ import Landing from './Landing';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <HashRouter basename='/debate-tracker/'>
+    <HashRouter>
         <Routes>
             <Route path="/:argID" element={<App />} />
             <Route path="" element={<Landing/>}/>
